@@ -31,17 +31,15 @@ t_color	get_color(int iteration, t_fractol *fractol)
     double	t;
 
 	t = percent(0, fractol->max_iter, iteration);
-//	t = (double)iteration / fractol->max_iter;
-//   color.channel[0] = (int8_t)(9 * (1 - t) * pow(t, 0) * 255);;
-	color.channel[0] = 0;
-    color.channel[(0 + fractol->color_shift) % 3 + 1] =
-            (int8_t)(9 * (1 - t) * pow(t, 1) * 255);
-    color.channel[(2 + fractol->color_shift) % 3 + 1] =
-            (int8_t)(15 * pow((1 - t), 2) * pow(t, 2) * 255);
-//    color.channel[(3 + fractol->color_shift) % 3 + 1] =
-//            (int8_t)(8.5 * pow((1 - t), 3) * t * 255);
-   color.channel[(3 + fractol->color_shift) % 3 + 1] = 0;
-	 return (color);
+	t = (double)iteration / fractol->max_iter;
+color.channel[0] = 0;
+	color.channel[(0 + fractol->color_shift) % 3 + 1] =
+		(int8_t)(9 * (1 - t) * pow(t, 3) * 255);
+	color.channel[(1 + fractol->color_shift) % 3 + 1] =
+		(int8_t)(15 * pow((1 - t), 2) * pow(t, 2) * 255);
+	color.channel[(2 + fractol->color_shift) % 3 + 1] =
+		(int8_t)(8.5 * pow((1 - t), 3) * t * 255);	 
+return (color);
 }
 
 void	put_pixel(t_fractol *fractol, int x, int y, t_color color)

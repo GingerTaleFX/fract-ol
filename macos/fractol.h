@@ -27,6 +27,11 @@
 #define THREADS 10
 #define RED 0xef5734
 # define COLOR_TUNDORA		0x444444
+# define COLOR_RED 0xbc1829
+# define COLOR_ORANGE 0xe76726
+# define COLOR_PEACH 0xfc9649
+# define COLOR_MINT 0x46ba89
+# define COLOR_BLUE 0x1d748a
 
 typedef enum
 {

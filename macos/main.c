@@ -21,6 +21,24 @@ void		set_defaults(t_fractol *fractol)
     fractol->color_shift = 0;
 }
 
+int		iterate_mandelbar(t_fractol *fractol)
+{
+	int			i;
+	t_vectors	z;
+
+	i = 0;
+	z = init_vectors(fractol->complex_number.re, fractol->complex_number.im);
+	while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4
+		&& i < fractol->max_iter)
+	{
+		z = init_vectors(
+			pow(z.re, 2.0) - pow(z.im, 2.0) + fractol->complex_number.re,
+			-2.0 * z.re * z.im + fractol->complex_number.im);
+		i++;
+	}
+	return (i);
+}
+
 int         iterate_mandelbrot(t_fractol *fractol)
 {
     int it;
@@ -44,8 +62,9 @@ int         (*get_fractal(char *name)) (t_fractol *fractol)
     size_t  i;
     int     (*formula)(t_fractol *fractol);
     t_formula   formulas[] = {
-            { "Mandelbrot", &iterate_mandelbrot }
-    };
+            { "Mandelbrot", &iterate_mandelbrot },
+    	{"Mandelbar", &iterate_mandelbar}
+	};
 
     i = 0;
     formula = NULL;
@@ -77,8 +96,8 @@ void        start(int number, char **names)
 
 int         main(int ac, char **av) {
     int i;
-    ac = 2;
-    av[1] = "Mandelbrot";
+//    ac = 2;
+//    av[1] = "Mandelbrot";
 
     if (ac >= 2 && ac <= 11)
     {
@@ -92,5 +111,10 @@ int         main(int ac, char **av) {
         if ( i == ac)
             start(ac - 1, &av[1]);
     }
-    return (0);
+	else
+	{
+	ft_putendl("Usage: /fractal [name of fractal]");
+	ft_putendl("[Mandelbrot] [Mandelbar]");
+	}   
+ return (0);
 }
