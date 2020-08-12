@@ -18,7 +18,44 @@ void		set_defaults(t_fractol *fractol)
     fractol->min =  init_vectors(-2.0, -2.0);
     fractol->max.re = 2.0;
     fractol->max.im = fractol->min.im + (fractol->max.re - fractol->min.re) * HEIGHT / WIDTH;
-    fractol->color_shift = 0;
+    fractol->constant = init_vectors(-0.4, 0.6);
+	fractol->color_shift = 0;
+}
+
+int		iterate_julia(t_fractol *fractol)
+{
+	int			i;
+	t_vectors	z;
+
+	i = 0;
+	z = init_vectors(fractol->complex_number.re, fractol->complex_number.im);
+	while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4
+		&& i < fractol->max_iter)
+	{
+		z = init_vectors(
+			pow(z.re, 2.0) - pow(z.im, 2.0) + fractol->constant.re,
+			2.0 * z.re * z.im + fractol->constant.im);
+		i++;
+	}
+	return (i);
+}
+
+int		iterate_burning_ship(t_fractol *fractol)
+{
+	int		i;
+	t_vectors	z;
+
+	i = 0;
+	z = init_vectors(fractol->complex_number.re, fractol->complex_number.im);
+	while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4
+		&& i < fractol->max_iter)
+	{
+		z = init_vectors(
+			pow(z.re, 2.0) - pow(z.im, 2.0) + fractol->complex_number.re,
+			-2.0 * fabs(z.re * z.im) + fractol->complex_number.im);
+		i++;
+	}
+	return (i);
 }
 
 int		iterate_mandelbar(t_fractol *fractol)
@@ -63,7 +100,9 @@ int         (*get_fractal(char *name)) (t_fractol *fractol)
     int     (*formula)(t_fractol *fractol);
     t_formula   formulas[] = {
             { "Mandelbrot", &iterate_mandelbrot },
-    	{"Mandelbar", &iterate_mandelbar}
+    	{"Mandelbar", &iterate_mandelbar},
+	{"BurningShip", &iterate_burning_ship},
+	{"Julia", &iterate_julia}
 	};
 
     i = 0;
@@ -114,7 +153,7 @@ int         main(int ac, char **av) {
 	else
 	{
 	ft_putendl("Usage: /fractal [name of fractal]");
-	ft_putendl("[Mandelbrot] [Mandelbar]");
+	ft_putendl("[Mandelbrot] [Mandelbar] [BurningShip] [Julia]");
 	}   
  return (0);
 }

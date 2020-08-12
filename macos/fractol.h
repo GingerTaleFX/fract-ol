@@ -65,6 +65,8 @@ typedef struct s_fractol
     void	*mlx;
     void	*f_window;
     t_vectors	complex_number;
+	t_vectors	constant;
+	t_bool		about_julia;
     t_vectors	min;
     t_vectors	max;
     t_vectors	factor;
@@ -103,5 +105,5 @@ void        draw_fract(t_fractol *fract);
 void	change_color_shift(t_fractol *fractol);
 void	change_max_iteration(int key, t_fractol *fractol);
 void    move(int key, t_fractol *fractol);
-
+int                             julia_motion(int x, int y, t_fractol *fractol);
 #endif

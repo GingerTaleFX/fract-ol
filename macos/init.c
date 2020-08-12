@@ -39,8 +39,8 @@ int			key_press(int key, t_fractol *fractol)
             move(key, fractol);
         else if (key == MAIN_PAD_C)
             change_color_shift(fractol);
-//        else if (key == MAIN_PAD_SPACE)
-//           fractol->is_julia_fixed = !fractol->is_julia_fixed;
+        else if (key == MAIN_PAD_SPACE)
+           fractol->about_julia = !fractol->about_julia;
     }
     return (0);
 }
@@ -66,10 +66,12 @@ t_fractol   *init_fract(char *name, void *mlx)
     fract->img = init_img(mlx);
     set_defaults(fract);
     fract->formula = get_fractal(name);
-//    тут будет управление и кое-что про Джулию
+	fract->about_julia = true;
 	mlx_hook(fract->f_window, 2, 0, key_press, fract);
 //    mlx_hook(fract->f_window, 17, 0, close, fract);
 //    mlx_hook(fract->f_window, 4, 0, zoom, fract);
+//	if (ft_strequ(name, "Julia"))
+//		mlx_hook(fract->f_window, 6, 0, julia_motion, fract);
     return(fract);
 }
 

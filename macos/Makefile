@@ -18,7 +18,7 @@ SRCS = main.c \
 	kb_utils.c
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -Wdeprecated-declarations
 OBJS = $(SRCS:.c=.o)
 INCLUDES = -I./libft/ \
 	-I./minilibx_macos/
@@ -35,23 +35,33 @@ LIBSNAME = libft.a \
 HEADERS = fractol.h \
 		macos_keys.h
 
+GREEN = \033[0;32m
+RED = \033[0;31m
+RESET = \033[0m
+
 all: $(NAME)
 
 %.o: %.c $(HEADERS)
-	$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<
+	@$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBFTPATH)
+	@echo "\n$(LIBFTPATH) $(GREEN) libft is done $(RESET)"
 	@$(MAKE) -C $(MINILIBXPATH)
-	@$(CC) -o $(NAME) $(OBJS) $(LIBSINC) -lmlx -lm -lft -framework OpenGL -framework AppKit
+	@echo "\n $(GREEN)MINILIB files were created$(RESET)"
+	@$(CC) -o $(NAME) $(OBJS) $(LIBSINC) -lmlx -lm -lft -framework OpenGL -framework AppKit -Wdeprecated-declarations
 
 clean:
-	$(MAKE) fclean -C $(LIBFTPATH)
-	$(MAKE) clean -C $(MINILIBXPATH)
-	/bin/rm -f $(OBJS)
+	@$(MAKE) fclean -C $(LIBFTPATH)
+	@echo "\n $(RED) LIBFT is cleared $(RESET)"
+	@$(MAKE) clean -C $(MINILIBXPATH)
+	@echo "\n $(RED) MINILIB is cleared $(RESET)"
+	@/bin/rm -f $(OBJS)
+	@echo "$(RED) OBJ-s are cleared $(RESET)"
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@echo "$(RED) $(NAME) was killed $(RESET)"
 
 re: fclean all
 

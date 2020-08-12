@@ -23,21 +23,27 @@ HEADER = libft.h get_next_line.h
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 
+GREEN = \033[0;32m
+RED = \033[0;31m
+RESET = \033[0m
+
 .PHONY: all clean fclean re
 
 %.o: %.c $(HEADER)
-	$(CC) $(FLAGS) -I./ -c $<
+	@$(CC) $(FLAGS) -I./ -c $<
 
-$(NAME): $(OBJECTS)
-	ar rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
+$(NAME): $(OBJECTS) 
+	@ar rc $(NAME) $(OBJECTS)
+	@ranlib $(NAME)
+	@echo "\nLIBFT is DONE"
 
 all: $(NAME)
 
 clean:
-	rm -f $(OBJECTS)
-
+	@rm -f $(OBJECTS)
+	@echo "\n$(RED)LIBFT OBJs cleared$(RESET)"
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+
 
 re: fclean all
