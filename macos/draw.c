@@ -115,22 +115,22 @@ void		draw_help(t_fractol *fractol)
 		WIDTH * HEIGHT * (fractol->img->bits_p_pix / 8));
 	mlx_put_image_to_window(fractol->mlx, fractol->f_window,
 		fractol->img->img, 0, 0);
-	mlx_string_put(fractol->mlx, fractol->f_window, 460, 355, COLOR_SILVER,
+	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H, MINT,
 		"Controls");
-	mlx_string_put(fractol->mlx, fractol->f_window, 385, 400, COLOR_SILVER,
+	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + LINER, MINT,
 		"Reset          - R");
-	mlx_string_put(fractol->mlx, fractol->f_window, 385, 430, COLOR_SILVER,
+	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 2), MINT,
 		"Color Shift    - C");
-	mlx_string_put(fractol->mlx, fractol->f_window, 385, 460, COLOR_SILVER,
+	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 3), MINT,
 		"Move           - Arrows");
-	mlx_string_put(fractol->mlx, fractol->f_window, 385, 490, COLOR_SILVER,
+	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 4), MINT,
 		"Zoom           - Scroll");
-	mlx_string_put(fractol->mlx, fractol->f_window, 385, 520, COLOR_SILVER,
+	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 5), MINT,
 		"Iterations     - +/-");
-	mlx_string_put(fractol->mlx, fractol->f_window, 385, 550, COLOR_SILVER,
+	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 6), MINT,
 		"Julia Constant - Mouse");
-	mlx_string_put(fractol->mlx, fractol->f_window, 385, 580, COLOR_SILVER,
+	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 7), MINT,
 		"Mouse Lock     - Space");
-	mlx_string_put(fractol->mlx, fractol->f_window, 385, 610, COLOR_SILVER,
+	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 8), MINT,
 		"Close Help     - H");
 }

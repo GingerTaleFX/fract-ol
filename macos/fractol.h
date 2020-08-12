@@ -24,6 +24,9 @@
 #define GL_SILENCE_DEPRECATION
 #define WIDTH 600
 #define HEIGHT 600
+#define MENU_W (WIDTH / 3) - 30
+#define MENU_H (HEIGHT / 3)
+#define LINER 30
 #define THREADS 10
 #define RED 0xef5734
 # define COLOR_TUNDORA		0x444444
@@ -31,7 +34,7 @@
 # define COLOR_RED 0xbc1829
 # define COLOR_ORANGE 0xe76726
 # define COLOR_PEACH 0xfc9649
-# define COLOR_MINT 0x46ba89
+# define MINT 0x46ba89
 # define COLOR_BLUE 0x1d748a
 
 typedef enum
