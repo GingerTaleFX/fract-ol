@@ -108,3 +108,29 @@ void        draw_fract(t_fractol *fract)
     mlx_string_put(fract->mlx, fract->f_window, 900, 965, COLOR_TUNDORA,
                    "H - Help");
 }
+
+void		draw_help(t_fractol *fractol)
+{
+	ft_bzero(fractol->img->data_addr,
+		WIDTH * HEIGHT * (fractol->img->bits_p_pix / 8));
+	mlx_put_image_to_window(fractol->mlx, fractol->f_window,
+		fractol->img->img, 0, 0);
+	mlx_string_put(fractol->mlx, fractol->f_window, 460, 355, COLOR_SILVER,
+		"Controls");
+	mlx_string_put(fractol->mlx, fractol->f_window, 385, 400, COLOR_SILVER,
+		"Reset          - R");
+	mlx_string_put(fractol->mlx, fractol->f_window, 385, 430, COLOR_SILVER,
+		"Color Shift    - C");
+	mlx_string_put(fractol->mlx, fractol->f_window, 385, 460, COLOR_SILVER,
+		"Move           - Arrows");
+	mlx_string_put(fractol->mlx, fractol->f_window, 385, 490, COLOR_SILVER,
+		"Zoom           - Scroll");
+	mlx_string_put(fractol->mlx, fractol->f_window, 385, 520, COLOR_SILVER,
+		"Iterations     - +/-");
+	mlx_string_put(fractol->mlx, fractol->f_window, 385, 550, COLOR_SILVER,
+		"Julia Constant - Mouse");
+	mlx_string_put(fractol->mlx, fractol->f_window, 385, 580, COLOR_SILVER,
+		"Mouse Lock     - Space");
+	mlx_string_put(fractol->mlx, fractol->f_window, 385, 610, COLOR_SILVER,
+		"Close Help     - H");
+}

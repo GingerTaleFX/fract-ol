@@ -1,4 +1,13 @@
 #include "fractol.h"
+void	help_menu(t_fractol *fractol)
+{
+	fractol->help_menu = !fractol->help_menu;
+	if (fractol->help_menu)
+		draw_help(fractol);
+	else
+		draw_fract(fractol);
+}
+
 
 void	move(int key, t_fractol *fractol)
 {

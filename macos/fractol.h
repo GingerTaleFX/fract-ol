@@ -27,6 +27,7 @@
 #define THREADS 10
 #define RED 0xef5734
 # define COLOR_TUNDORA		0x444444
+# define COLOR_SILVER		0xCCCCCC
 # define COLOR_RED 0xbc1829
 # define COLOR_ORANGE 0xe76726
 # define COLOR_PEACH 0xfc9649
@@ -76,7 +77,7 @@ typedef struct s_fractol
     t_img	*img;
 	int	start_line;
 	int	finish_line;
-	t_bool	is_help;
+	t_bool	help_menu;
 	
 }           t_fractol;
 
@@ -106,4 +107,6 @@ void	change_color_shift(t_fractol *fractol);
 void	change_max_iteration(int key, t_fractol *fractol);
 void    move(int key, t_fractol *fractol);
 int                             julia_motion(int x, int y, t_fractol *fractol);
+void            draw_help(t_fractol *fractol);
+void    help_menu(t_fractol *fractol);
 #endif

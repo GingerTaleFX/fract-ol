@@ -12,19 +12,14 @@
 
 #include "fractol.h"
 
-//int		close(void *param)
-//{
-//    (void)param;
-//    exit(0);
-//}
-
 int			key_press(int key, t_fractol *fractol)
 {
+	printf("%i\n", key);
     if (key == MAIN_PAD_ESC)
         exit(0);
-//    else if (key == MAIN_PAD_H)
-//        help(fractol);
-    else if (!fractol->is_help)
+    else if (key == MAIN_PAD_H)
+        help_menu(fractol);
+    else if (!fractol->help_menu)
     {
         if (key == MAIN_PAD_R)
         {
@@ -68,10 +63,9 @@ t_fractol   *init_fract(char *name, void *mlx)
     fract->formula = get_fractal(name);
 	fract->about_julia = true;
 	mlx_hook(fract->f_window, 2, 0, key_press, fract);
-//    mlx_hook(fract->f_window, 17, 0, close, fract);
 //    mlx_hook(fract->f_window, 4, 0, zoom, fract);
-//	if (ft_strequ(name, "Julia"))
-//		mlx_hook(fract->f_window, 6, 0, julia_motion, fract);
+	if (ft_strequ(name, "Julia"))
+		mlx_hook(fract->f_window, 6, 0, julia_motion, fract);
     return(fract);
 }
 

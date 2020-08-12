@@ -15,7 +15,8 @@ NAME = fractol
 SRCS = main.c \
         init.c \
         draw.c \
-	kb_utils.c
+	kb_utils.c \
+	mouse_control.c
 
 CC = gcc
 FLAGS = -Wall -Wextra -Werror -Wdeprecated-declarations
@@ -45,22 +46,22 @@ all: $(NAME)
 	@$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<
 
 $(NAME): $(OBJS)
-	@$(MAKE) -C $(LIBFTPATH)
+	$(MAKE) -C $(LIBFTPATH)
 	@echo "\n$(LIBFTPATH) $(GREEN) libft is done $(RESET)"
-	@$(MAKE) -C $(MINILIBXPATH)
+	$(MAKE) -C $(MINILIBXPATH)
 	@echo "\n $(GREEN)MINILIB files were created$(RESET)"
-	@$(CC) -o $(NAME) $(OBJS) $(LIBSINC) -lmlx -lm -lft -framework OpenGL -framework AppKit -Wdeprecated-declarations
+	$(CC) -o $(NAME) $(OBJS) $(LIBSINC) -lmlx -lm -lft -framework OpenGL -framework AppKit -Wdeprecated-declarations
 
 clean:
-	@$(MAKE) fclean -C $(LIBFTPATH)
+	$(MAKE) fclean -C $(LIBFTPATH)
 	@echo "\n $(RED) LIBFT is cleared $(RESET)"
-	@$(MAKE) clean -C $(MINILIBXPATH)
+	$(MAKE) clean -C $(MINILIBXPATH)
 	@echo "\n $(RED) MINILIB is cleared $(RESET)"
-	@/bin/rm -f $(OBJS)
+	/bin/rm -f $(OBJS)
 	@echo "$(RED) OBJ-s are cleared $(RESET)"
 
 fclean: clean
-	@/bin/rm -f $(NAME)
+	/bin/rm -f $(NAME)
 	@echo "$(RED) $(NAME) was killed $(RESET)"
 
 re: fclean all
