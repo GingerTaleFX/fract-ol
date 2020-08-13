@@ -33,7 +33,7 @@
 # define COLOR_SILVER		0xCCCCCC
 # define COLOR_RED 0xbc1829
 # define COLOR_ORANGE 0xe76726
-# define COLOR_PEACH 0xfc9649
+# define PEACH 0xfc9649
 # define MINT 0x46ba89
 # define COLOR_BLUE 0x1d748a
 
@@ -112,4 +112,7 @@ void    move(int key, t_fractol *fractol);
 int                             julia_motion(int x, int y, t_fractol *fractol);
 void            draw_help(t_fractol *fractol);
 void    help_menu(t_fractol *fractol);
+double	interpolate(double start, double end, double interpolation);
+int				zoom(int button, int x, int y, t_fractol *fractol);
+
 #endif

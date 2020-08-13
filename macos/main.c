@@ -14,7 +14,7 @@
 
 void		set_defaults(t_fractol *fractol)
 {
-    fractol->max_iter = 25;
+    fractol->max_iter = 50;
     fractol->min =  init_vectors(-2.0, -2.0);
     fractol->max.re = 2.0;
     fractol->max.im = fractol->min.im + (fractol->max.re - fractol->min.re) * HEIGHT / WIDTH;

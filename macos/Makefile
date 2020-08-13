@@ -16,7 +16,8 @@ SRCS = main.c \
         init.c \
         draw.c \
 	kb_utils.c \
-	mouse_control.c
+	mouse_control.c \
+	zoom.c
 
 CC = gcc
 FLAGS = -Wall -Wextra -Werror -Wdeprecated-declarations

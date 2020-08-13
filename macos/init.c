@@ -14,7 +14,7 @@
 
 int			key_press(int key, t_fractol *fractol)
 {
-	printf("%i\n", key);
+//	printf("%i\n", key);
     if (key == MAIN_PAD_ESC)
         exit(0);
     else if (key == MAIN_PAD_H)
@@ -63,7 +63,7 @@ t_fractol   *init_fract(char *name, void *mlx)
     fract->formula = get_fractal(name);
 	fract->about_julia = true;
 	mlx_hook(fract->f_window, 2, 0, key_press, fract);
-//    mlx_hook(fract->f_window, 4, 0, zoom, fract);
+    mlx_hook(fract->f_window, 4, 0, zoom, fract);
 	if (ft_strequ(name, "Julia"))
 		mlx_hook(fract->f_window, 6, 0, julia_motion, fract);
     return(fract);

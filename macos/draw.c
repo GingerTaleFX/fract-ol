@@ -31,7 +31,7 @@ t_color	get_color(int iteration, t_fractol *fractol)
     double	t;
 
 	t = percent(0, fractol->max_iter, iteration);
-	t = (double)iteration / fractol->max_iter;
+//	t = (double)iteration / fractol->max_iter;
 color.channel[0] = 0;
 	color.channel[(0 + fractol->color_shift) % 3 + 1] =
 		(int8_t)(9 * (1 - t) * pow(t, 3) * 255);
@@ -46,6 +46,7 @@ void	put_pixel(t_fractol *fractol, int x, int y, t_color color)
 {
     int	i;
 
+
     i = (x * fractol->img->bits_p_pix / 8)
         + (y * fractol->img->line_size);
     fractol->img->data_addr[i] = color.channel[3];
@@ -58,9 +59,9 @@ void	put_pixel(t_fractol *fractol, int x, int y, t_color color)
 //        printf("%i = %i\n %i = %i\n %i = %i\n %i = %i\n",
 //              i,fractol->img->data_addr[i], i + 1, fractol->img->data_addr[i + 1], i + 2, fractol->img->data_addr[i + 2], i + 3, fractol->img->data_addr[i + 3]);
 //        printf("Here is color chanel\n I = %i\n", i);
-//        printf("color.channel[0] = %i\n color.channel[1] = %i\n color.channel[2] = %i\n color.channel[3] = %i\n",
+//        printf("color.channel[0] = %i\n color.channel[1] = %i\n color.channel[2] = %i\n color.channel[3] = %i\n", \
 //               color.channel[0], color.channel[1], color.channel[2], color.channel[3]);
-//    }
+//	}
 }
 
 void        draw_frac_part(t_fractol *fract)
@@ -87,25 +88,27 @@ void        draw_frac_part(t_fractol *fract)
 
 void        draw_fract(t_fractol *fract)
 {
-//    t_fractol all_fr[THREADS];
-//    pthread_t threads[THREADS];
+    t_fractol all_fr[THREADS];
+    pthread_t threads[THREADS];
     int i;
 
     fract->factor = init_vectors(((fract->max.re - fract->min.re) / (WIDTH - 1)),((fract->max.im - fract->min.im) / (HEIGHT - 1)));
     i = 0;
-//    while (i < THREADS)
-//    {
-//        all_fr[i] = *fract;
-    fract->start_line = i * HEIGHT;
-    fract->finish_line = (i + 1) * HEIGHT;
-    draw_frac_part(fract);
-//        pthread_create(&threads[i], NULL, (void *)(void *)draw_frac_part, (void *)&all_fr[i]);
-//        i++;
-//    }
-//    while (i-- > 0)
-//        pthread_join(threads[i], NULL);
+    while (i < THREADS)
+    {
+	all_fr[i] = *fract;
+	all_fr[i].start_line = i * (HEIGHT / THREADS);
+	all_fr[i].finish_line = (i + 1) * (HEIGHT / THREADS);
+//    fract->start_line = i * HEIGHT;
+//    fract->finish_line = (i + 1) * HEIGHT;
+	draw_frac_part(fract);
+        pthread_create(&threads[i], NULL, (void *)(void *)draw_frac_part, (void *)&all_fr[i]);
+        i++;
+    }
+    while (i-- > 0)
+        pthread_join(threads[i], NULL);
     mlx_put_image_to_window(fract->mlx, fract->f_window, fract->img->img, 0, 0);
-    mlx_string_put(fract->mlx, fract->f_window, 900, 965, COLOR_TUNDORA,
+    mlx_string_put(fract->mlx, fract->f_window, 20, 10, PEACH,
                    "H - Help");
 }
 
