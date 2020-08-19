@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../include/fractol.h"
 
 double		percent(int start, int end, int current)
 {
@@ -27,92 +27,77 @@ double		percent(int start, int end, int current)
 
 t_color	get_color(int iteration, t_fractol *fractol)
 {
-    t_color	color;
-    double	t;
+    	t_color	color;
+    	double	t;
 
 	t = percent(0, fractol->max_iter, iteration);
-//	t = (double)iteration / fractol->max_iter;
-color.channel[0] = 0;
-	color.channel[(0 + fractol->color_shift) % 3 + 1] =
-		(int8_t)(9 * (1 - t) * pow(t, 3) * 255);
-	color.channel[(1 + fractol->color_shift) % 3 + 1] =
-		(int8_t)(15 * pow((1 - t), 2) * pow(t, 2) * 255);
-	color.channel[(2 + fractol->color_shift) % 3 + 1] =
-		(int8_t)(8.5 * pow((1 - t), 3) * t * 255);	 
-return (color);
+	color.channel[0] = 0;
+	color.channel[(0 + fractol->color_shift) % 3 + 1] = (int8_t)(3 * (1 - t) * pow(t,3) * 0xff);
+	color.channel[(1 + fractol->color_shift) % 3 + 1] = (int8_t)(15 * pow(1 - t, 2) * pow(t, 2) * 0xff);
+	color.channel[(2 + fractol->color_shift) % 3 + 1] = (int8_t)(5 * pow((1 - t), 3) *t * 0xff);
+	return (color);
 }
 
 void	put_pixel(t_fractol *fractol, int x, int y, t_color color)
 {
-    int	i;
+    	int	i;
 
 
-    i = (x * fractol->img->bits_p_pix / 8)
-        + (y * fractol->img->line_size);
-    fractol->img->data_addr[i] = color.channel[3];
-   fractol->img->data_addr[++i] = color.channel[2];
-    fractol->img->data_addr[++i] = color.channel[1];
-    fractol->img->data_addr[++i] = color.channel[0];
-//    if ((color.channel[0] || color.channel[1] || color.channel[2] || color.channel[3]) != 0)
-//    {
-//        printf("Here is data-addr\n I = %i\n", i);
-//        printf("%i = %i\n %i = %i\n %i = %i\n %i = %i\n",
-//              i,fractol->img->data_addr[i], i + 1, fractol->img->data_addr[i + 1], i + 2, fractol->img->data_addr[i + 2], i + 3, fractol->img->data_addr[i + 3]);
-//        printf("Here is color chanel\n I = %i\n", i);
-//        printf("color.channel[0] = %i\n color.channel[1] = %i\n color.channel[2] = %i\n color.channel[3] = %i\n", \
-//               color.channel[0], color.channel[1], color.channel[2], color.channel[3]);
-//	}
+    	i = (x * fractol->img->bits_p_pix / 8)
+        	+ (y * fractol->img->line_size);
+    	fractol->img->data_addr[i] = color.channel[3];
+   	fractol->img->data_addr[++i] = color.channel[2];
+    	fractol->img->data_addr[++i] = color.channel[1];
+    	fractol->img->data_addr[++i] = color.channel[0];
 }
 
-void        draw_frac_part(t_fractol *fract)
+void	draw_frac_part(t_fractol *fract)
 {
-    double x;
-    double y;
-    t_color color;
+    	double x;
+    	double y;
+    	t_color color;
 
-    y = fract->start_line;
-    while (y < fract->finish_line)
-    {
-        fract->complex_number.im = fract->max.im - y * fract->factor.im;
-        x = 0;
-        while (x < WIDTH)
-        {
-            fract->complex_number.re = fract->min.re + x * fract->factor.re;
-            color = get_color(fract->formula(fract), fract);
-            put_pixel(fract, x, y, color);
-            x++;
-        }
-        y++;
-    }
+    	y = fract->start_line;
+    	while (y < fract->finish_line)
+    	{
+        	fract->complex_number.im = fract->max.im - y * fract->factor.im;
+        	x = 0;
+        	while (x < WIDTH)
+        	{
+            	fract->complex_number.re = fract->min.re + x * fract->factor.re;
+            	color = get_color(fract->formula(fract), fract);
+            	put_pixel(fract, x, y, color);
+            	x++;
+        	}
+        	y++;
+    	}
 }
 
-void        draw_fract(t_fractol *fract)
+void	draw_fract(t_fractol *fract)
 {
-    t_fractol all_fr[THREADS];
-    pthread_t threads[THREADS];
-    int i;
+	t_fractol all_fr[THREADS];
+	pthread_t threads[THREADS];
+	int i;
 
-    fract->factor = init_vectors(((fract->max.re - fract->min.re) / (WIDTH - 1)),((fract->max.im - fract->min.im) / (HEIGHT - 1)));
-    i = 0;
-    while (i < THREADS)
-    {
+	fract->factor = init_vectors(((fract->max.re - fract->min.re) / (WIDTH - 1)),((fract->max.im - fract->min.im) / (HEIGHT - 1)));
+	i = 0;
+	while (i < THREADS)
+	{
 	all_fr[i] = *fract;
 	all_fr[i].start_line = i * (HEIGHT / THREADS);
 	all_fr[i].finish_line = (i + 1) * (HEIGHT / THREADS);
-//    fract->start_line = i * HEIGHT;
-//    fract->finish_line = (i + 1) * HEIGHT;
 	draw_frac_part(fract);
         pthread_create(&threads[i], NULL, (void *)(void *)draw_frac_part, (void *)&all_fr[i]);
         i++;
-    }
-    while (i-- > 0)
-        pthread_join(threads[i], NULL);
-    mlx_put_image_to_window(fract->mlx, fract->f_window, fract->img->img, 0, 0);
-    mlx_string_put(fract->mlx, fract->f_window, 20, 10, PEACH,
+    	}
+    	while (i-- > 0)
+        	pthread_join(threads[i], NULL);
+    	mlx_put_image_to_window(fract->mlx, fract->f_window, fract->img->img, 0, 0);
+    	mlx_string_put(fract->mlx, fract->f_window, 20, 10, PEACH,
                    "H - Help");
 }
 
-void		draw_help(t_fractol *fractol)
+void	draw_help(t_fractol *fractol)
 {
 	ft_bzero(fractol->img->data_addr,
 		WIDTH * HEIGHT * (fractol->img->bits_p_pix / 8));

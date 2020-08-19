@@ -18,32 +18,29 @@ SOURCES = ft_lstmap.c ft_lstiter.c ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lst
         ft_isprint.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar.c ft_putnbr.c ft_putstr.c ft_strcat.c ft_strchr.c ft_strcmp.c \
         ft_strcpy.c ft_strdup.c ft_strlcat.c ft_strlen.c ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnlen.c ft_strnstr.c ft_strrchr.c ft_strstr.c ft_tolower.c \
         ft_toupper.c ft_cl.c get_next_line.c
+
 OBJECTS = $(SOURCES:.c=.o)
+
 HEADER = libft.h get_next_line.h
+
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
-
-GREEN = \033[0;32m
-RED = \033[0;31m
-RESET = \033[0m
 
 .PHONY: all clean fclean re
 
 %.o: %.c $(HEADER)
 	@$(CC) $(FLAGS) -I./ -c $<
 
-$(NAME): $(OBJECTS) 
+$(NAME): $(OBJECTS)
 	@ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
-	@echo "\nLIBFT is DONE"
 
 all: $(NAME)
 
 clean:
 	@rm -f $(OBJECTS)
-	@echo "\n$(RED)LIBFT OBJs cleared$(RESET)"
+
 fclean: clean
 	@rm -f $(NAME)
-
 
 re: fclean all

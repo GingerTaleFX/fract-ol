@@ -1,4 +1,4 @@
-#include "fractol.h"
+#include "../include/fractol.h"
 void	help_menu(t_fractol *fractol)
 {
 	fractol->help_menu = !fractol->help_menu;
@@ -59,6 +59,6 @@ void	change_max_iteration(int key, t_fractol *fractol)
 
 void	change_color_shift(t_fractol *fractol)
 {
-	fractol->color_shift = fractol->color_shift + 1 % 4;
+	fractol->color_shift = fractol->color_shift + 1 % 2;
 	draw_fract(fractol);
 }

@@ -1,4 +1,4 @@
-#include "fractol.h"
+#include "../include/fractol.h"
 
 double	interpolate(double start, double end, double interpolation)
 {

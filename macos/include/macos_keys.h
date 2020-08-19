@@ -18,10 +18,10 @@
 # define MOUSE_SCROLL_UP	4
 # define MOUSE_SCROLL_DOWN	5
 
-# define ARROW_UP		125
-# define ARROW_DOWN		126
-# define ARROW_LEFT		124
-# define ARROW_RIGHT		123
+# define ARROW_UP		126
+# define ARROW_DOWN		125
+# define ARROW_LEFT		123
+# define ARROW_RIGHT		124
 
 # define NUM_PAD_PLUS		69
 # define NUM_PAD_MINUS		78

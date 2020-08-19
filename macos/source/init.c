@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../include/fractol.h"
 
 int			key_press(int key, t_fractol *fractol)
 {
-//	printf("%i\n", key);
     if (key == MAIN_PAD_ESC)
         exit(0);
     else if (key == MAIN_PAD_H)

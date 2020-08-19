@@ -13,9 +13,9 @@
 #ifndef FRACTOL_FRACTOL_H
 #define FRACTOL_FRACTOL_H
 
-#include "libft/libft.h"
+#include "../libft/libft.h"
 #include "macos_keys.h"
-# include "minilibx_macos/mlx.h"
+# include "../minilibx_macos/mlx.h"
 # include <stdio.h>
 # include <errno.h>
 # include <math.h>

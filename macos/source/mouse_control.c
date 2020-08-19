@@ -1,4 +1,4 @@
-#include "fractol.h"
+#include "../include/fractol.h"
 
 int				julia_motion(int x, int y, t_fractol *fractol)
 {
