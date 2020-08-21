@@ -1,4 +1,32 @@
 #include "../include/fractol.h"
+
+int     key_press(int key, t_fractol *fractol)
+{   
+    if (key == MAIN_PAD_ESC)
+                exit(0);
+    else if (key == MAIN_PAD_H)
+                help_menu(fractol);
+    else if (!fractol->help_menu)
+    {   
+        if (key == MAIN_PAD_R)
+        {       
+                set_defaults(fractol);
+                draw_fract(fractol);
+        }
+        else if (key == MAIN_PAD_MINUS || key == NUM_PAD_MINUS
+                || key == MAIN_PAD_PLUS || key == NUM_PAD_PLUS)
+                change_max_iteration(key, fractol);
+        else if (key == ARROW_LEFT || key == ARROW_RIGHT
+                 || key == ARROW_UP || key == ARROW_DOWN)
+                move(key, fractol);
+        else if (key == MAIN_PAD_C)
+                change_color_shift(fractol);
+        else if (key == MAIN_PAD_SPACE)
+                fractol->about_julia = !fractol->about_julia;
+    }
+    return (0);
+}
+
 void	help_menu(t_fractol *fractol)
 {
 	fractol->help_menu = !fractol->help_menu;
@@ -11,9 +39,9 @@ void	help_menu(t_fractol *fractol)
 
 void	move(int key, t_fractol *fractol)
 {
-	t_vectors	delta;
+	t_compnums	delta;
 
-	delta = init_vectors(FT_ABS(fractol->max.re - fractol->min.re),
+	delta = init_compnums(FT_ABS(fractol->max.re - fractol->min.re),
 		FT_ABS(fractol->max.im - fractol->min.im));
 	if (key == ARROW_LEFT)
 	{
@@ -59,6 +87,6 @@ void	change_max_iteration(int key, t_fractol *fractol)
 
 void	change_color_shift(t_fractol *fractol)
 {
-	fractol->color_shift = fractol->color_shift + 1 % 2;
+	fractol->color_shift = fractol->color_shift + 1 % 4;
 	draw_fract(fractol);
 }

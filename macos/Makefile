@@ -18,7 +18,9 @@ SOURCES = main.c \
         draw.c \
 	kb_utils.c \
 	mouse_control.c \
-	zoom.c
+	zoom.c \
+	fractols.c \
+	utils.c
 
 ### OBJECTS ###
 
@@ -47,6 +49,7 @@ lib:
 	@echo "$(GREEN)Creating lib files$(CYAN)"
 	@make -C $(LIBFT)
 	@make -C $(MLX)
+	@echo 	"$(RESET)"
 
 $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) -L $(LIBFT) -L $(MLX) -o $@ $^ -lmlx -lm -lft -framework OpenGL -framework AppKit

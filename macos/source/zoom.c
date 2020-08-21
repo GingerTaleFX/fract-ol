@@ -1,21 +1,15 @@
 #include "../include/fractol.h"
 
-double	interpolate(double start, double end, double interpolation)
-{
-	return (start + ((end - start) * interpolation));
-}
-
 int				zoom(int button, int x, int y, t_fractol *fractol)
 {
-	t_vectors	mouse;
+	t_compnums	mouse;
 	double		interpolation;
 	double		zoom;
 
-//	printf("%i\n", button);
 	if (!fractol->help_menu
 		&& (button == MOUSE_SCROLL_UP || button == MOUSE_SCROLL_DOWN))
 	{
-		mouse = init_vectors(
+		mouse = init_compnums(
 			(double)x / (WIDTH / (fractol->max.re - fractol->min.re))
 				+ fractol->min.re,
 			(double)y / (HEIGHT / (fractol->max.im - fractol->min.im))

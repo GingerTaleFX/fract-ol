@@ -12,20 +12,7 @@
 
 #include "../include/fractol.h"
 
-double		percent(int start, int end, int current)
-{
-	double	placement;
-	double	distance;
-
-	placement = current - start;
-	distance = end - start;
-	if (distance == 0)
-		return (1.0);
-	else
-		return ((placement / distance));
-}
-
-t_color	get_color(int iteration, t_fractol *fractol)
+t_color		get_color(int iteration, t_fractol *fractol)
 {
     	t_color	color;
     	double	t;
@@ -38,7 +25,7 @@ t_color	get_color(int iteration, t_fractol *fractol)
 	return (color);
 }
 
-void	put_pixel(t_fractol *fractol, int x, int y, t_color color)
+void		put_pixel(t_fractol *fractol, int x, int y, t_color color)
 {
     	int	i;
 
@@ -51,35 +38,36 @@ void	put_pixel(t_fractol *fractol, int x, int y, t_color color)
     	fractol->img->data_addr[++i] = color.channel[0];
 }
 
-void	draw_frac_part(t_fractol *fract)
+void		draw_frac_part(t_fractol *fract)
 {
-    	double x;
-    	double y;
-    	t_color color;
+    	double	x;
+    	double	y;
+    	t_color	color;
 
     	y = fract->start_line;
     	while (y < fract->finish_line)
     	{
-        	fract->complex_number.im = fract->max.im - y * fract->factor.im;
+   		fract->complex_number.im = fract->max.im - y * fract->factor.im;
         	x = 0;
         	while (x < WIDTH)
         	{
-            	fract->complex_number.re = fract->min.re + x * fract->factor.re;
-            	color = get_color(fract->formula(fract), fract);
-            	put_pixel(fract, x, y, color);
-            	x++;
+            		fract->complex_number.re = fract->min.re + x * fract->factor.re;
+            		color = get_color(fract->formula(fract), fract);
+            		put_pixel(fract, x, y, color);
+            		x++;
         	}
         	y++;
     	}
 }
 
-void	draw_fract(t_fractol *fract)
+void			draw_fract(t_fractol *fract)
 {
-	t_fractol all_fr[THREADS];
-	pthread_t threads[THREADS];
-	int i;
+	t_fractol	all_fr[THREADS];
+	pthread_t	threads[THREADS];
+	int		i;
 
-	fract->factor = init_vectors(((fract->max.re - fract->min.re) / (WIDTH - 1)),((fract->max.im - fract->min.im) / (HEIGHT - 1)));
+	fract->factor = init_compnums(((fract->max.re - fract->min.re) / (WIDTH - 1)) \
+	,((fract->max.im - fract->min.im) / (HEIGHT - 1)));
 	i = 0;
 	while (i < THREADS)
 	{
@@ -106,19 +94,19 @@ void	draw_help(t_fractol *fractol)
 	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H, MINT,
 		"Controls");
 	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + LINER, MINT,
-		"Reset          - R");
+		"Reset - R");
 	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 2), MINT,
-		"Color Shift    - C");
+		"Color Shift - C");
 	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 3), MINT,
-		"Move           - Arrows");
+		"Move - Arrows");
 	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 4), MINT,
-		"Zoom           - Scroll");
+		"Zoom - Scroll");
 	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 5), MINT,
-		"Iterations     - +/-");
+		"Iterations - +/-");
 	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 6), MINT,
 		"Julia Constant - Mouse");
 	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 7), MINT,
-		"Mouse Lock     - Space");
+		"Mouse Lock - Space");
 	mlx_string_put(fractol->mlx, fractol->f_window, MENU_W, MENU_H + (LINER * 8), MINT,
-		"Close Help     - H");
+		"Close Help - H");
 }

@@ -12,36 +12,9 @@
 
 #include "../include/fractol.h"
 
-int			key_press(int key, t_fractol *fractol)
+t_img		*init_img(void  *mlx)
 {
-    if (key == MAIN_PAD_ESC)
-        exit(0);
-    else if (key == MAIN_PAD_H)
-        help_menu(fractol);
-    else if (!fractol->help_menu)
-    {
-        if (key == MAIN_PAD_R)
-        {
-            set_defaults(fractol);
-            draw_fract(fractol);
-        }
-        else if (key == MAIN_PAD_MINUS || key == NUM_PAD_MINUS
-                || key == MAIN_PAD_PLUS || key == NUM_PAD_PLUS)
-            change_max_iteration(key, fractol);
-        else if (key == ARROW_LEFT || key == ARROW_RIGHT
-                 || key == ARROW_UP || key == ARROW_DOWN)
-            move(key, fractol);
-        else if (key == MAIN_PAD_C)
-            change_color_shift(fractol);
-        else if (key == MAIN_PAD_SPACE)
-           fractol->about_julia = !fractol->about_julia;
-    }
-    return (0);
-}
-
-t_img       *init_img(void  *mlx)
-{
-    t_img       *img;
+    t_img	*img;
 
     img = (t_img *)(ft_memalloc(sizeof(t_img)));
     img->img = mlx_new_image(mlx, WIDTH, HEIGHT);
@@ -50,9 +23,9 @@ t_img       *init_img(void  *mlx)
 }
 
 
-t_fractol   *init_fract(char *name, void *mlx)
+t_fractol	*init_fract(char *name, void *mlx)
 {
-    t_fractol *fract;
+    t_fractol	*fract;
 
     fract = (t_fractol *)(ft_memalloc(sizeof(t_fractol)));
     fract->mlx = mlx;
@@ -63,16 +36,16 @@ t_fractol   *init_fract(char *name, void *mlx)
 	fract->about_julia = true;
 	mlx_hook(fract->f_window, 2, 0, key_press, fract);
     mlx_hook(fract->f_window, 4, 0, zoom, fract);
-	if (ft_strequ(name, "Julia"))
+	if (ft_strequ(name, "4"))
 		mlx_hook(fract->f_window, 6, 0, julia_motion, fract);
     return(fract);
 }
 
-t_vectors   init_vectors(double re, double im)
+t_compnums	init_compnums(double re, double im)
 {
-    t_vectors vectors;
+    t_compnums compnums;
 
-    vectors.re = re;
-    vectors.im = im;
-    return (vectors);
+    compnums.re = re;
+    compnums.im = im;
+    return (compnums);
 }
