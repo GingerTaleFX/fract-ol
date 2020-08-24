@@ -27,10 +27,10 @@ int         (*get_fractal(char *name)) (t_fractol *fractol)
     size_t  i;
     int     (*formula)(t_fractol *fractol);
     t_formula   formulas[] = {
-	{ "1", &iterate_mandelbrot },
-    	{"2", &iterate_mandelbar},
-	{"3", &iterate_celtic_mandelbrot},
-	{"4", &iterate_julia}
+	{ "Mabdelbrot", &iterate_mandelbrot },
+    	{"Mandelbar", &iterate_mandelbar},
+	{"CelticMandelbrot", &iterate_celtic_mandelbrot},
+	{"Julia", &iterate_julia}
 	};
 
     i = 0;

@@ -36,7 +36,7 @@ t_fractol	*init_fract(char *name, void *mlx)
 	fract->about_julia = true;
 	mlx_hook(fract->f_window, 2, 0, key_press, fract);
     mlx_hook(fract->f_window, 4, 0, zoom, fract);
-	if (ft_strequ(name, "4"))
+	if (ft_strequ(name, "julia"))
 		mlx_hook(fract->f_window, 6, 0, julia_motion, fract);
     return(fract);
 }
