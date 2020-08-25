@@ -16,8 +16,10 @@ t_img		*init_img(void  *mlx)
 {
     t_img	*img;
 
-    img = (t_img *)(ft_memalloc(sizeof(t_img)));
-    img->img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!(img = (t_img *)(ft_memalloc(sizeof(t_img)))))
+		terminate(ERR_IMAGE_INIT);
+    if (!(img->img = mlx_new_image(mlx, WIDTH, HEIGHT)))
+		terminate(ERR_IMAGE_INIT);
     img->data_addr = mlx_get_data_addr(img->img, &(img->bits_p_pix), &(img->line_size), &(img->endian));
     return (img);
 }
@@ -27,15 +29,18 @@ t_fractol	*init_fract(char *name, void *mlx)
 {
     t_fractol	*fract;
 
-    fract = (t_fractol *)(ft_memalloc(sizeof(t_fractol)));
+    if (!(fract = (t_fractol *)(ft_memalloc(sizeof(t_fractol)))))
+		terminate(ERR_FRACTOL_INIT);
     fract->mlx = mlx;
-    fract->f_window = mlx_new_window(mlx, WIDTH, HEIGHT, name);
+    if (!(fract->f_window = mlx_new_window(mlx, WIDTH, HEIGHT, name)))
+		terminate(ERR_WINDOW_INIT);
     fract->img = init_img(mlx);
     set_defaults(fract);
-    fract->formula = get_fractal(name);
+    if (!(fract->formula = get_fractal(name)))
+		terminate(ERR_FRACTAL_NAME);
 	fract->about_julia = true;
 	mlx_hook(fract->f_window, 2, 0, key_press, fract);
-    mlx_hook(fract->f_window, 4, 0, zoom, fract);
+	mlx_hook(fract->f_window, 4, 0, zoom, fract);
 	if (ft_strequ(name, "julia"))
 		mlx_hook(fract->f_window, 6, 0, julia_motion, fract);
     return(fract);

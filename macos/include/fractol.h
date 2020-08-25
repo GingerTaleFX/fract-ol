@@ -14,6 +14,7 @@
 #define FRACTOL_FRACTOL_H
 
 #include "../libft/libft.h"
+#include "errors.h"
 #include "macos_keys.h"
 # include "../minilibx_macos/mlx.h"
 # include <stdio.h>
@@ -140,6 +141,7 @@ void		change_max_iteration(int key, t_fractol *fractol);
 void		move(int key, t_fractol *fractol);
 void		draw_help(t_fractol *fractol);
 void		help_menu(t_fractol *fractol);
+void		terminate(char *s);
 int		key_press(int key, t_fractol *fractol);
 int		zoom(int button, int x, int y, t_fractol *fractol);
 int             julia_motion(int x, int y, t_fractol *fractol);

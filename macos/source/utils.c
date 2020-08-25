@@ -17,3 +17,9 @@ double  interpolate(double start, double end, double interpolation)
 {
         return (start + ((end - start) * interpolation));
 }
+
+void	terminate(char *s)
+{
+	ft_putendl_fd(s, 2);
+	exit(0);
+}

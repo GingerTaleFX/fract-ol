@@ -27,7 +27,7 @@ int         (*get_fractal(char *name)) (t_fractol *fractol)
     size_t  i;
     int     (*formula)(t_fractol *fractol);
     t_formula   formulas[] = {
-	{ "Mabdelbrot", &iterate_mandelbrot },
+	{ "Mandelbrot", &iterate_mandelbrot },
     	{"Mandelbar", &iterate_mandelbar},
 	{"CelticMandelbrot", &iterate_celtic_mandelbrot},
 	{"Julia", &iterate_julia}
@@ -62,9 +62,9 @@ void        start(int number, char **names)
 }
 
 int         main(int ac, char **av) {
-    int i;
-//    ac = 2;
-//    av[1] = "Mandelbrot";
+	int i;
+//	ac = 2;
+//	av[1] = "Mandelbrot";
 
     if (ac >= 2 && ac <= 11)
     {
@@ -72,7 +72,10 @@ int         main(int ac, char **av) {
         while (i < ac)
         {
             if (!get_fractal(av[i]))
-                break ;
+                {
+			ft_putendl("Wrong name, try again");
+			break ;
+		}
             i++;
         }
         if ( i == ac)
@@ -80,8 +83,8 @@ int         main(int ac, char **av) {
     }
 	else
 	{
-	ft_putendl("Usage: /fractal [number of fractal]");
-	ft_putendl("[1] - Mandelbrot | [2] - Mandelbar | [3] = Celtic Mandelbrot | [4] - Julia");
+	ft_putendl("Usage: /fractal [name of fractal]");
+	ft_putendl("Mandelbrot | Mandelbar | CelticMandelbrot | Julia");
 	}   
  return (0);
 }
