@@ -1,57 +1,79 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ginger <ginger@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/04/22 13:50:30 by ginger            #+#    #+#              #
-#    Updated: 2020/08/07 14:07:17 by root             ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+### COMPILATION ###
+CC      = gcc -O2
+FLAGS  = -Wall -Wextra -Werror
 
-NAME = fractol
+### EXECUTABLE ###
+NAME   = fractol
 
-SRCS = main.c \
+### INCLUDES ###
+LIBFT  = libft
+OBJ_PATH  = objs
+HEADER = include
+SRC_PATH  = source
+MLX = minilibx
+
+### SOURCE FILES ###
+SOURCES = main.c \
         init.c \
-        draw.c
+        draw.c \
+	kb_utils.c \
+	mouse_control.c \
+	zoom.c \
+	fractols.c \
+	utils.c
 
-CC = gcc
-FLAGS = -Wall -Wextra -Werror
-OBJS = $(SRCS:.c=.o)
-INCLUDES = -I./libft/ \
-	-I./minilibx/
+### OBJECTS ###
 
-LIBSINC = -L./libft/ \
-	-L./minilibx/
+SRCS = $(addprefix $(SRC_PATH)/,$(SOURCES))
+OBJS = $(addprefix $(OBJ_PATH)/,$(SOURCES:.c=.o))
 
-LIBFTPATH = ./libft/
-MINILIBXPATH = ./minilibx/
+### COLORS ###
+NOC = \033[0m
+BOLD = \033[1m
+UNDERLINE = \033[4m
+BLACK = \033[1;30m
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+VIOLET = \033[1;35m
+CYAN = \033[1;36m
+WHITE = \033[1;37m
+RESET = \033[0m
 
-LIBSNAME = libft.a \
-	libmlx.a
+### RULES ###
 
-HEADERS = fractol.h \
-            linux_keys.h
+all: lib tmp $(NAME)
 
-all: $(NAME)
-
-%.o: %.c $(HEADERS)
-	$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<
+lib:
+	@echo "$(GREEN)Creating lib files$(CYAN)"
+	@make -C $(LIBFT)
+	@make -C $(MLX)
+	@echo 	"$(RESET)"
 
 $(NAME): $(OBJS)
-	@$(MAKE) -C $(LIBFTPATH)
-	@$(MAKE) -C $(MINILIBXPATH)
-	@$(CC) -o $(NAME) $(OBJS) $(LIBSINC) -lft -lmlx -lOpenGL -lX11 -lm -lXext
+	@$(CC) $(FLAGS) -L $(LIBFT) -L $(MLX) -o $@ $^ -pthread -lft -lmlx -lOpenGL -lX11 -lm -lXext
+	@echo "$(GREEN)Project successfully compiled$(RESET)"
+
+tmp:
+	@mkdir -p objs
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)/$(NAME).h
+	@$(CC) $(FLAGS) -c -o $@ $<
+	@echo "$(BLUE)Creating object file -> $(WHITE)$(notdir $@)... $(RED)[Done]$(RESET)"
 
 clean:
-	$(MAKE) fclean -C $(LIBFTPATH)
-	$(MAKE) clean -C $(MINILIBXPATH)
-	/bin/rm -f $(OBJS)
+	@echo "$(GREEN)Supressing libraries files$(RESET)"
+	@make clean -C $(LIBFT)
+	@rm -rf $(OBJ_PATH)
 
-fclean: clean
-	@/bin/rm -f $(NAME)
+fclean:
+	@echo "$(GREEN)Supressing libraries files$(RESET)"
+	@rm -rf $(OBJ_PATH)
+	@rm -f $(NAME)
+	@make fclean -C $(LIBFT)
 
-re: fclean all
+re: fclean
+	@$(MAKE) all -j
 
-.PHONY: clean fclean re all
+.PHONY: temporary, re, fclean, clean

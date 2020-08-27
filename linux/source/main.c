@@ -10,34 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../include/fractol.h"
 
-void		set_defaults(t_fractol *fractol)
+void			set_defaults(t_fractol *fractol)
 {
-    fractol->max_iter = 20;
-    fractol->min =  init_vectors(-2.0, -2.0);
+    fractol->max_iter = 50;
+    fractol->min =  init_compnums(-2.0, -2.0);
     fractol->max.re = 2.0;
-    fractol->max.im = fractol->min.im
-                      + (fractol->max.re - fractol->min.re) * HEIGHT / WIDTH;
-    fractol->color_shift = 100;
-}
-
-int         iterate_mandelbrot(t_fractol *fractol)
-{
-    int it;
-    t_vectors z;
-
-    it = 0;
-    z = init_vectors(fractol->complex_number.re, fractol->complex_number.im);
-//    printf("Before while\n z.re = %f\n z.im = %f\n", z.re, z.im);
-    while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4 && it <= fractol->max_iter)
-    {
-        z = init_vectors(
-                pow(z.re, 2.0) - pow(z.im, 2.0) + fractol->complex_number.re,
-                2.0 * z.re * z.im + fractol->complex_number.im);
-        it++;
-    }
-    return (it);
+    fractol->max.im = fractol->min.im + (fractol->max.re - fractol->min.re) * HEIGHT / WIDTH;
+    fractol->constant = init_compnums(-0.4, 0.6);
+	fractol->color_shift = 0;
 }
 
 int         (*get_fractal(char *name)) (t_fractol *fractol)
@@ -45,8 +27,11 @@ int         (*get_fractal(char *name)) (t_fractol *fractol)
     size_t  i;
     int     (*formula)(t_fractol *fractol);
     t_formula   formulas[] = {
-            { "Mandelbrot", &iterate_mandelbrot }
-    };
+	{ "Mandelbrot", &iterate_mandelbrot },
+    	{"Mandelbar", &iterate_mandelbar},
+	{"CelticMandelbrot", &iterate_celtic_mandelbrot},
+	{"Julia", &iterate_julia}
+	};
 
     i = 0;
     formula = NULL;
@@ -61,7 +46,7 @@ int         (*get_fractal(char *name)) (t_fractol *fractol)
 
 void        start(int number, char **names)
 {
-    t_fractol   *fracs[3];
+    t_fractol   *fracs[THREADS];
     void        *mlx;
     int         i;
 
@@ -77,9 +62,9 @@ void        start(int number, char **names)
 }
 
 int         main(int ac, char **av) {
-    int i;
-    ac = 2;
-    av[1] = "Mandelbrot";
+	int i;
+//	ac = 2;
+//	av[1] = "Mandelbrot";
 
     if (ac >= 2 && ac <= 11)
     {
@@ -87,11 +72,19 @@ int         main(int ac, char **av) {
         while (i < ac)
         {
             if (!get_fractal(av[i]))
-                break ;
+                {
+			ft_putendl("Wrong name, try again");
+			break ;
+		}
             i++;
         }
         if ( i == ac)
             start(ac - 1, &av[1]);
     }
-    return (0);
+	else
+	{
+	ft_putendl("Usage: /fractal [name of fractal]");
+	ft_putendl("Mandelbrot | Mandelbar | CelticMandelbrot | Julia");
+	}   
+ return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:55:45 by root              #+#    #+#             */
-/*   Updated: 2020/08/07 15:10:52 by root             ###   ########.fr       */
+/*   Updated: 2020/08/27 22:31:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,24 @@
 
 #include "../libft/libft.h"
 #include "errors.h"
-#include "macos_keys.h"
-# include "../minilibx_macos/mlx.h"
+#include "linux_keys.h"
+# include "../minilibx/mlx.h"
+# include <X11/X.h>
 # include <stdio.h>
 # include <errno.h>
 # include <math.h>
-# include <pthread.h>
+#include <pthread.h>
 
-#define GL_SILENCE_DEPRECATION
+//#define _GNU_SOURCE
 #define WIDTH 600
 #define HEIGHT 600
 #define MENU_W (WIDTH / 3) - 30
 #define MENU_H (HEIGHT / 3)
 #define LINER 30
 #define THREADS 10
-#define RED 0xef5734
-# define COLOR_TUNDORA		0x444444
-# define COLOR_SILVER		0xCCCCCC
-# define COLOR_RED 0xbc1829
-# define COLOR_ORANGE 0xe76726
 # define PEACH 0xfc9649
 # define MINT 0x46ba89
-# define COLOR_BLUE 0x1d748a
+
 
 typedef enum
 {
