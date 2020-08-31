@@ -1,19 +1,19 @@
-### COMPILATION ###
-CC      = gcc -O2
-FLAGS  = -Wall -Wextra -Werror
+NAME = fractol
 
-### EXECUTABLE ###
-NAME   = fractol
+### COMPILATION ###
+
+CC = gcc
+FLAGS = -Wall -Wextra -Werror
 
 ### INCLUDES ###
-LIBFT  = libft
-OBJ_PATH  = objs
-HEADER = include
-SRC_PATH  = source
+
+S_DIR = source
+H_DIR = include
+LIBFT = ../libft
 MLX = minilibx_macos
 
 ### SOURCE FILES ###
-SOURCES = main.c \
+SRCS = main.c \
         init.c \
         draw.c \
 	kb_utils.c \
@@ -24,19 +24,22 @@ SOURCES = main.c \
 
 ### OBJECTS ###
 
-SRCS = $(addprefix $(SRC_PATH)/,$(SOURCES))
-OBJS = $(addprefix $(OBJ_PATH)/,$(SOURCES:.c=.o))
+OBJS = $(addprefix $(S_DIR)/, $(SRCS:.c=.o))
+
+### HEADERS ###
+
+H_FILES = errors.h \
+          fractol.h \
+          macos_keys.h
+
+HEADERS = $(addprefix $(H_DIR)/, $(H_FILES))
 
 ### COLORS ###
-NOC = \033[0m
-BOLD = \033[1m
-UNDERLINE = \033[4m
-BLACK = \033[1;30m
+
 RED = \033[1;31m
 GREEN = \033[1;32m
 YELLOW = \033[1;33m
 BLUE = \033[1;34m
-VIOLET = \033[1;35m
 CYAN = \033[1;36m
 WHITE = \033[1;37m
 RESET = \033[0m
@@ -55,25 +58,20 @@ $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) -L $(LIBFT) -L $(MLX) -o $@ $^ -lmlx -lm -lft -framework OpenGL -framework AppKit
 	@echo "$(GREEN)Project successfully compiled$(RESET)"
 
-tmp:
-	@mkdir -p objs
-
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)/$(NAME).h
-	@$(CC) $(FLAGS) -c -o $@ $<
+%.o: %.c $(HEADERS)
+	@$(CC) $(FLAGS) -o $@ -c $<
 	@echo "$(BLUE)Creating object file -> $(WHITE)$(notdir $@)... $(RED)[Done]$(RESET)"
 
 clean:
 	@echo "$(GREEN)Supressing libraries files$(RESET)"
-	@make clean -C $(LIBFT)
-	@rm -rf $(OBJ_PATH)
+	@$(MAKE) fclean -C $(LIBFT)
+	@$(MAKE) clean -C $(MLX)
+	@/bin/rm -f $(OBJS)
 
-fclean:
+fclean: clean
 	@echo "$(GREEN)Supressing libraries files$(RESET)"
-	@rm -rf $(OBJ_PATH)
-	@rm -f $(NAME)
-	@make fclean -C $(LIBFT)
+	@/bin/rm -f $(NAME)
 
-re: fclean
-	@$(MAKE) all -j
+re: fclean all
 
-.PHONY: temporary, re, fclean, clean
+.PHONY: clean fclean re all

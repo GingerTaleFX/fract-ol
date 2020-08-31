@@ -6,14 +6,14 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:55:45 by root              #+#    #+#             */
-/*   Updated: 2020/08/07 15:10:52 by root             ###   ########.fr       */
+/*   Updated: 2020/08/31 14:49:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_FRACTOL_H
 #define FRACTOL_FRACTOL_H
 
-#include "../libft/libft.h"
+#include "../../libft/include/libft.h"
 #include "errors.h"
 #include "macos_keys.h"
 # include "../minilibx_macos/mlx.h"

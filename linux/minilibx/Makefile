@@ -10,6 +10,12 @@
 
 ## Please use configure script
 
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+RESET = \033[0m
+UP = "\033[A"
+CUT = "\033[K"
 
 all	: do_configure
 
@@ -18,8 +24,10 @@ do_configure	:
 
 clean	:
 	./configure clean
+	@echo "$(RED)Cleaning MLX object files $(RED)[Done]$(RESET)"
+
 
 re	: clean all
 
 install:
-	$(MAKE) -f Makefile.gen $@
+	@$(MAKE) -f Makefile.gen $@
