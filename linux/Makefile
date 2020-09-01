@@ -6,7 +6,7 @@
 #    By: ginger <ginger@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/22 13:50:30 by ginger            #+#    #+#              #
-#    Updated: 2020/08/31 14:52:46 by root             ###   ########.fr        #
+#    Updated: 2020/08/31 14:11:32 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ FLAGS = -Wall -Wextra -Werror
 
 S_DIR = source
 H_DIR = include
-LIBFT = ../libft
+LIBFT = libft
 MLX = minilibx
 
 ### SOURCE ###
@@ -49,10 +49,15 @@ HEADERS = $(addprefix $(H_DIR)/, $(H_FILES))
 
 ### COLORS ###
 
+NOC = \033[0m
+BOLD = \033[1m
+UNDERLINE = \033[4m
+BLACK = \033[1;30m
 RED = \033[1;31m
 GREEN = \033[1;32m
 YELLOW = \033[1;33m
 BLUE = \033[1;34m
+VIOLET = \033[1;35m
 CYAN = \033[1;36m
 WHITE = \033[1;37m
 RESET = \033[0m

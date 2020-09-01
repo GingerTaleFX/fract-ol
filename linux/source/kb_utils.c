@@ -6,40 +6,40 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 23:11:09 by root              #+#    #+#             */
-/*   Updated: 2020/08/27 23:13:39 by root             ###   ########.fr       */
+/*   Updated: 2020/08/31 19:14:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-int     key_press(int key, t_fractol *fractol)
+int				key_press(int key, t_fractol *fractol)
 {
-    if (key == MAIN_PAD_ESC)
-        exit(0);
-    else if (key == MAIN_PAD_H)
-        help_menu(fractol);
-    else if (!fractol->help_menu)
-    {
-        if (key == MAIN_PAD_R)
-        {
-            set_defaults(fractol);
-            draw_fract(fractol);
-        }
-        else if (key == MAIN_PAD_MINUS || key == NUM_PAD_MINUS \
-        || key == MAIN_PAD_PLUS || key == NUM_PAD_PLUS)
-            change_max_iteration(key, fractol);
-        else if (key == ARROW_LEFT || key == ARROW_RIGHT \
-        || key == ARROW_UP || key == ARROW_DOWN)
-            move(key, fractol);
-        else if (key == MAIN_PAD_C)
-            change_color_shift(fractol);
-        else if (key == MAIN_PAD_SPACE)
-            fractol->about_julia = !fractol->about_julia;
-    }
-    return (0);
+	if (key == MAIN_PAD_ESC)
+		exit(0);
+	else if (key == MAIN_PAD_H)
+		help_menu(fractol);
+	else if (!fractol->help_menu)
+	{
+		if (key == MAIN_PAD_R)
+		{
+			set_defaults(fractol);
+			draw_fract(fractol);
+		}
+		else if (key == MAIN_PAD_MINUS || key == NUM_PAD_MINUS \
+		|| key == MAIN_PAD_PLUS || key == NUM_PAD_PLUS)
+			change_max_iteration(key, fractol);
+		else if (key == ARROW_LEFT || key == ARROW_RIGHT \
+		|| key == ARROW_UP || key == ARROW_DOWN)
+			move(key, fractol);
+		else if (key == MAIN_PAD_C)
+			change_color_shift(fractol);
+		else if (key == MAIN_PAD_SPACE)
+			fractol->about_julia = !fractol->about_julia;
+	}
+	return (0);
 }
 
-void    help_menu(t_fractol *fractol)
+void			help_menu(t_fractol *fractol)
 {
 	fractol->help_menu = !fractol->help_menu;
 	if (fractol->help_menu)
@@ -48,8 +48,7 @@ void    help_menu(t_fractol *fractol)
 		draw_fract(fractol);
 }
 
-
-void	move(int key, t_fractol *fractol)
+void			move(int key, t_fractol *fractol)
 {
 	t_compnums	delta;
 
@@ -78,7 +77,7 @@ void	move(int key, t_fractol *fractol)
 	draw_fract(fractol);
 }
 
-void	change_max_iteration(int key, t_fractol *fractol)
+void			change_max_iteration(int key, t_fractol *fractol)
 {
 	if (key == MAIN_PAD_PLUS || key == NUM_PAD_PLUS)
 	{
@@ -97,7 +96,7 @@ void	change_max_iteration(int key, t_fractol *fractol)
 	draw_fract(fractol);
 }
 
-void	change_color_shift(t_fractol *fractol)
+void			change_color_shift(t_fractol *fractol)
 {
 	fractol->color_shift = fractol->color_shift + 1 % 4;
 	draw_fract(fractol);
