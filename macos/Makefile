@@ -9,7 +9,7 @@ FLAGS = -Wall -Wextra -Werror
 
 S_DIR = source
 H_DIR = include
-LIBFT = ../libft
+LIBFT = ../libft/
 MLX = minilibx_macos
 
 ### SOURCE FILES ###
@@ -46,10 +46,10 @@ RESET = \033[0m
 
 ### RULES ###
 
-all: lib tmp $(NAME)
+all: lib $(NAME)
 
 lib:
-	@echo "$(GREEN)Creating lib files$(CYAN)"
+	@echo "$(CYAN)Creating lib files$(RESET)"
 	@make -C $(LIBFT)
 	@make -C $(MLX)
 	@echo 	"$(RESET)"
