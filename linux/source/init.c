@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 14:02:36 by root              #+#    #+#             */
-/*   Updated: 2020/09/01 15:49:47 by root             ###   ########.fr       */
+/*   Updated: 2020/09/04 15:17:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_img			*init_img(void *mlx)
 	return (img);
 }
 
+
 t_fractol		*init_fract(char *name, void *mlx)
 {
 	t_fractol	*fract;
@@ -36,8 +37,8 @@ t_fractol		*init_fract(char *name, void *mlx)
 		terminate(ERR_WINDOW_INIT);
 	fract->img = init_img(mlx);
 	set_defaults(fract);
-	if (!(fract->formula = get_fractal(name)))
-		terminate(ERR_FRACTAL_NAME);
+	fract->name_index = check_name(name);
+	get_formula(fract);
 	fract->about_julia = true;
 	mlx_hook(fract->f_window, 2, KeyPressMask, key_press, fract);
 	mlx_hook(fract->f_window, 4, ButtonPressMask, zoom, fract);

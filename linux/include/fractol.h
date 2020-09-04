@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:55:45 by root              #+#    #+#             */
-/*   Updated: 2020/09/01 15:51:53 by root             ###   ########.fr       */
+/*   Updated: 2020/09/04 15:13:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct	s_fractol
 	t_compnums	min;
 	t_compnums	max;
 	t_compnums	factor;
+	int 		name_index;
 	int			max_iter;
 	int			color_shift;
 	int			(*formula)(struct s_fractol *fractol);
@@ -100,16 +101,6 @@ typedef struct	s_fractol
 	t_bool		about_julia;
 	t_img		*img;
 }				t_fractol;
-
-/*
-** t_formula for saving and sharing fractol formulas
-*/
-
-typedef struct	s_formula
-{
-	char		*name;
-	int			(*formula)(struct s_fractol *fractol);
-}				t_formula;
 
 typedef	struct	s_color
 {
@@ -136,11 +127,11 @@ void		terminate(char *s);
 int			key_press(int key, t_fractol *fractol);
 int			zoom(int button, int x, int y, t_fractol *fractol);
 int			julia_motion(int x, int y, t_fractol *fractol);
-int			(*get_fractal(char *name))(t_fractol *fractol);
-//t_formula		*get_fractal(char *name);
+void 		get_formula(t_fractol *fractol);
 int			iterate_mandelbrot(t_fractol *fractol);
 int			iterate_mandelbar(t_fractol *fractol);
 int			iterate_celtic_mandelbrot(t_fractol *fractol);
 int			iterate_julia(t_fractol *fractol);
+int			check_name(char *name);
 
 #endif

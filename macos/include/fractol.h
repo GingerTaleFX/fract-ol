@@ -22,21 +22,14 @@
 # include <math.h>
 # include <pthread.h>
 
-#define GL_SILENCE_DEPRECATION
-#define WIDTH 600
-#define HEIGHT 600
-#define MENU_W (WIDTH / 3) - 30
-#define MENU_H (HEIGHT / 3)
-#define LINER 30
-#define THREADS 10
-#define RED 0xef5734
-# define COLOR_TUNDORA		0x444444
-# define COLOR_SILVER		0xCCCCCC
-# define COLOR_RED 0xbc1829
-# define COLOR_ORANGE 0xe76726
+# define WIDTH 600
+# define HEIGHT 600
+# define MENU_W (WIDTH / 3) - 30
+# define MENU_H (HEIGHT / 3)
+# define LINER 30
+# define THREADS 10
 # define PEACH 0xfc9649
 # define MINT 0x46ba89
-# define COLOR_BLUE 0x1d748a
 
 typedef enum
 {
@@ -49,12 +42,12 @@ typedef enum
 ** im - imaginary part
 */
 
-typedef struct		s_compnums
+typedef struct	s_compnums
 {
 	double		re;
 	double		im;
 
-}			t_compnums;
+}				t_compnums;
 
 /*
 ** img		- image identifier
@@ -64,31 +57,31 @@ typedef struct		s_compnums
 ** endian	- little or big endian
 */
 
-typedef	struct		s_img
+typedef	struct	s_img
 {
 	void		*img;
 	char		*data_addr;
-	int		bits_p_pix;
-	int		line_size;
-	int		endian;
-}			t_img;
+	int			bits_p_pix;
+	int			line_size;
+	int			endian;
+}				t_img;
 
 /*
-** mlx				- for minilibx lib and window
-** f_window			- for minilibx and window
-** complex_number		- for pool of numbers, which will use for drawing
-** constant			- for correct julia working
-** min amd max			-  'mooving' pic in coords 2 and -2
-** factor			- dependency between complex numbers and pixels
-** max_iter			- default number for 1st pic
-** formula			- saves the fractol formula
-** start and finish lines	- shows the start and the end, for correct work of threads
-** help_menu			- for help menu
-** about_julia			- shows if it is fixed or not
-** img				- info about image 
+** mlx						- for minilibx lib and window
+** f_window					- for minilibx and window
+** complex_number			- for pool of numbers, which will use for drawing
+** constant					- for correct julia working
+** min amd max				- 'mooving' pic in coords 2 and -2
+** factor					- dependency between complex numbers and pixels
+** max_iter					- default number for 1st pic
+** formula					- saves the fractol formula
+** start and finish lines	- start/end for correct work of threads
+** help_menu				- for help menu
+** about_julia				- shows if it is fixed or not
+** img						- info about image
 */
 
-typedef struct s_fractol
+typedef struct	s_fractol
 {
 	void		*mlx;
 	void		*f_window;
@@ -97,39 +90,27 @@ typedef struct s_fractol
 	t_compnums	min;
 	t_compnums	max;
 	t_compnums	factor;
-	int		max_iter;
-	int		color_shift;
-	int		(*formula)(struct s_fractol *fractol);
-	int		start_line;
-	int		finish_line;
+	int 		name_index;
+	int			max_iter;
+	int			color_shift;
+	int			(*formula)(struct s_fractol *fractol);
+	int			start_line;
+	int			finish_line;
 	t_bool		help_menu;
-	t_bool          about_julia;
+	t_bool		about_julia;
 	t_img		*img;
-}			t_fractol;
-
-
-/*
-** t_formula for saving and sharing fractol formulas
-*/
-
-typedef struct s_formula
-{
-    char	*name;
-    int		(*formula)(struct s_fractol *fractol);
-
-}		t_formula;
+}				t_fractol;
 
 typedef	struct	s_color
 {
-    int8_t	channel[4];
-}		t_color;
-
+	int8_t		channel[4];
+}				t_color;
 
 t_fractol	*init_fract(char *name, void *mlx);
 t_compnums	init_compnums(double re, double im);
-t_img		*init_img(void  *mlx);
-t_color         get_color(int iteration, t_fractol *fractol);
-double          interpolate(double start, double end, double interpolation);
+t_img		*init_img(void *mlx);
+t_color		get_color(int iteration, t_fractol *fractol);
+double		interpolate(double start, double end, double interpolation);
 double		percent(int start, int end, int current);
 double		interpolate(double start, double end, double interpolation);
 void		set_defaults(t_fractol *fractol);
@@ -142,12 +123,13 @@ void		move(int key, t_fractol *fractol);
 void		draw_help(t_fractol *fractol);
 void		help_menu(t_fractol *fractol);
 void		terminate(char *s);
-int		key_press(int key, t_fractol *fractol);
-int		zoom(int button, int x, int y, t_fractol *fractol);
-int             julia_motion(int x, int y, t_fractol *fractol);
-int             (*get_fractal(char *name)) (t_fractol *fractol);
-int		iterate_mandelbrot(t_fractol *fractol);
-int		iterate_mandelbar(t_fractol *fractol);
-int		iterate_celtic_mandelbrot(t_fractol *fractol);
-int		iterate_julia(t_fractol *fractol);
+int			key_press(int key, t_fractol *fractol);
+int			zoom(int button, int x, int y, t_fractol *fractol);
+int			julia_motion(int x, int y, t_fractol *fractol);
+void 		get_formula(t_fractol *fractol);
+int			iterate_mandelbrot(t_fractol *fractol);
+int			iterate_mandelbar(t_fractol *fractol);
+int			iterate_celtic_mandelbrot(t_fractol *fractol);
+int			iterate_julia(t_fractol *fractol);
+int			check_name(char *name);
 #endif

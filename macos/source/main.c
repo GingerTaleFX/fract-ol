@@ -22,28 +22,6 @@ void			set_defaults(t_fractol *fractol)
 	fractol->color_shift = 0;
 }
 
-int         (*get_fractal(char *name)) (t_fractol *fractol)
-{
-    size_t  i;
-    int     (*formula)(t_fractol *fractol);
-    t_formula   formulas[] = {
-	{ "Mandelbrot", &iterate_mandelbrot },
-    	{"Mandelbar", &iterate_mandelbar},
-	{"CelticMandelbrot", &iterate_celtic_mandelbrot},
-	{"Julia", &iterate_julia}
-	};
-
-    i = 0;
-    formula = NULL;
-    while (i < (sizeof(formulas) / sizeof(t_formula)))
-    {
-        if (ft_strequ(name, formulas[i].name))
-            formula = formulas[i].formula;
-        i++;
-    }
-    return (formula);
-}
-
 void        start(int number, char **names)
 {
     t_fractol   *fracs[THREADS];
@@ -61,30 +39,29 @@ void        start(int number, char **names)
     mlx_loop(mlx);
 }
 
-int         main(int ac, char **av) {
-	int i;
-//	ac = 2;
-//	av[1] = "Mandelbrot";
+int				main(int ac, char **av)
+{
+	int			i;
 
-    if (ac >= 2 && ac <= 11)
-    {
-        i = 1;
-        while (i < ac)
-        {
-            if (!get_fractal(av[i]))
-                {
-			ft_putendl("Wrong name, try again");
-			break ;
+	if (ac >= 2 && ac <= 11)
+	{
+		i = 1;
+		while (i < ac)
+		{
+			if (!check_name(av[i]))
+			{
+				ft_putendl(ERR_FRACTAL_NAME);
+				break ;
+			}
+			i++;
 		}
-            i++;
-        }
-        if ( i == ac)
-            start(ac - 1, &av[1]);
-    }
+		if (i == ac)
+			start(ac - 1, &av[1]);
+	}
 	else
 	{
-	ft_putendl("Usage: /fractal [name of fractal]");
-	ft_putendl("Mandelbrot | Mandelbar | CelticMandelbrot | Julia");
-	}   
- return (0);
+		ft_putendl("Usage: /fractal [name of fractal]");
+		ft_putendl("Mandelbrot | Mandelbar | CelticMandelbrot | Julia");
+	}
+	return (0);
 }
