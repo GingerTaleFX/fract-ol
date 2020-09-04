@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 14:02:36 by root              #+#    #+#             */
-/*   Updated: 2020/09/04 15:17:17 by root             ###   ########.fr       */
+/*   Updated: 2020/09/04 15:22:21 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_img			*init_img(void *mlx)
 	&(img->bits_p_pix), &(img->line_size), &(img->endian));
 	return (img);
 }
-
 
 t_fractol		*init_fract(char *name, void *mlx)
 {

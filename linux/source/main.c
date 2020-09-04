@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:55:28 by root              #+#    #+#             */
-/*   Updated: 2020/09/04 15:06:14 by root             ###   ########.fr       */
+/*   Updated: 2020/09/04 18:30:24 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void			set_defaults(t_fractol *fractol)
 	fractol->max_iter = 50;
 	fractol->min = init_compnums(-2.0, -2.0);
 	fractol->max.re = 2.0;
-	fractol->max.im = fractol->min.im + (fractol->max.re - fractol->min.re) * HEIGHT / WIDTH;
+	fractol->max.im = fractol->min.im + (fractol->max.re \
+					- fractol->min.re) * HEIGHT / WIDTH;
 	fractol->constant = init_compnums(-0.4, 0.6);
 	fractol->color_shift = 0;
 }
@@ -42,7 +43,7 @@ void			start(int number, char **names)
 int				main(int ac, char **av)
 {
 	int			i;
-	
+
 	if (ac >= 2 && ac <= 11)
 	{
 		i = 1;
@@ -61,7 +62,7 @@ int				main(int ac, char **av)
 	else
 	{
 		ft_putendl("Usage: /fractal [name of fractal]");
-		ft_putendl("Mandelbrot | Mandelbar | CelticMandelbrot | Julia");
+		ft_putendl("Mandelbrot | Burningship | CelticMandelbrot | Julia");
 	}
 	return (0);
 }

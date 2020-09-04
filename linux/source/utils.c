@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:11:03 by root              #+#    #+#             */
-/*   Updated: 2020/09/04 15:17:17 by root             ###   ########.fr       */
+/*   Updated: 2020/09/04 15:34:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void		terminate(char *s)
 }
 
 int			check_name(char *name)
-{   int		i;
+{
+	int		i;
 
 	i = 0;
 	if (ft_strcmp(name, "Mandelbrot") == 0)
@@ -58,11 +59,11 @@ void		get_formula(t_fractol *fractol)
 	if (fractol->name_index == 1)
 		fractol->formula = &iterate_mandelbrot;
 	else if (fractol->name_index == 2)
-		fractol->formula = &iterate_mandelbar;
+		fractol->formula = &iterate_julia;
 	else if (fractol->name_index == 3)
 		fractol->formula = iterate_celtic_mandelbrot;
 	else if (fractol->name_index == 4)
-		fractol->formula = &iterate_julia;
+		fractol->formula = &iterate_burning_ship;
 	else
 		terminate(ERR_FRACTAL_NAME);
 }

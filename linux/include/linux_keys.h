@@ -6,12 +6,12 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 17:42:42 by root              #+#    #+#             */
-/*   Updated: 2020/08/31 11:19:38 by root             ###   ########.fr       */
+/*   Updated: 2020/09/04 18:38:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_LINUX_KEYS_H
-#define FRACTOL_LINUX_KEYS_H
+#ifndef LINUX_KEYS_H
+# define LINUX_KEYS_H
 
 # define MOUSE_SCROLL_UP		4
 # define MOUSE_SCROLL_DOWN		5

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 14:04:09 by root              #+#    #+#             */
-/*   Updated: 2020/08/27 23:08:44 by root             ###   ########.fr       */
+/*   Updated: 2020/09/04 18:22:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void			draw_fract(t_fractol *fract)
 		all_fr[i].start_line = i * (HEIGHT / THREADS);
 		all_fr[i].finish_line = (i + 1) * (HEIGHT / THREADS);
 		draw_frac_part(fract);
-		pthread_create(&threads[i], NULL, \
+		pthread_create(&threads[i], NULL,
 		(void *)(void *)draw_frac_part, (void *)&all_fr[i]);
 		i++;
 	}
@@ -98,7 +98,7 @@ void			draw_help(t_fractol *fractol)
 	mlx_string_put(fractol->mlx, fractol->f_window, \
 	MENU_W, MENU_H + LINER, MINT, "Reset - R");
 	mlx_string_put(fractol->mlx, fractol->f_window, \
-	MENU_W, MENU_H + LINER, MINT, "Color Shift - C");
+	MENU_W, MENU_H + (LINER * 2), MINT, "Color Shift - C");
 	mlx_string_put(fractol->mlx, fractol->f_window, \
 	MENU_W, MENU_H + (LINER * 3), MINT, "Move - Arrows");
 	mlx_string_put(fractol->mlx, fractol->f_window,\
