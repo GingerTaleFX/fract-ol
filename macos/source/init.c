@@ -6,26 +6,26 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 14:02:36 by root              #+#    #+#             */
-/*   Updated: 2020/09/01 16:56:18 by root             ###   ########.fr       */
+/*   Updated: 2020/09/07 11:41:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-t_img		*init_img(void  *mlx)
+t_img			*init_img(void *mlx)
 {
-    t_img	*img;
+	t_img		*img;
 
 	if (!(img = (t_img *)(ft_memalloc(sizeof(t_img)))))
 		terminate(ERR_IMAGE_INIT);
-    if (!(img->img = mlx_new_image(mlx, WIDTH, HEIGHT)))
+	if (!(img->img = mlx_new_image(mlx, WIDTH, HEIGHT)))
 		terminate(ERR_IMAGE_INIT);
-    img->data_addr = mlx_get_data_addr(img->img, &(img->bits_p_pix), &(img->line_size), &(img->endian));
-    return (img);
+	img->data_addr = mlx_get_data_addr(img->img, \
+	&(img->bits_p_pix), &(img->line_size), &(img->endian));
+	return (img);
 }
 
-
-t_fractol	*init_fract(char *name, void *mlx)
+t_fractol		*init_fract(char *name, void *mlx)
 {
 	t_fractol	*fract;
 
@@ -43,14 +43,14 @@ t_fractol	*init_fract(char *name, void *mlx)
 	mlx_hook(fract->f_window, 4, 0, zoom, fract);
 	if (ft_strequ(name, "Julia"))
 		mlx_hook(fract->f_window, 6, 0, julia_motion, fract);
-    return(fract);
+	return (fract);
 }
 
-t_compnums	init_compnums(double re, double im)
+t_compnums		init_compnums(double re, double im)
 {
-    t_compnums compnums;
+	t_compnums	compnums;
 
-    compnums.re = re;
-    compnums.im = im;
-    return (compnums);
+	compnums.re = re;
+	compnums.im = im;
+	return (compnums);
 }

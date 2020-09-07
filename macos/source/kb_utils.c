@@ -1,30 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   kb_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/07 12:44:13 by root              #+#    #+#             */
+/*   Updated: 2020/09/07 12:44:13 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/fractol.h"
 
-int     key_press(int key, t_fractol *fractol)
-{   
-    if (key == MAIN_PAD_ESC)
-                exit(0);
-    else if (key == MAIN_PAD_H)
-                help_menu(fractol);
-    else if (!fractol->help_menu)
-    {   
-        if (key == MAIN_PAD_R)
-        {       
-                set_defaults(fractol);
-                draw_fract(fractol);
-        }
-        else if (key == MAIN_PAD_MINUS || key == NUM_PAD_MINUS
-                || key == MAIN_PAD_PLUS || key == NUM_PAD_PLUS)
-                change_max_iteration(key, fractol);
-        else if (key == ARROW_LEFT || key == ARROW_RIGHT
-                 || key == ARROW_UP || key == ARROW_DOWN)
-                move(key, fractol);
-        else if (key == MAIN_PAD_C)
-                change_color_shift(fractol);
-        else if (key == MAIN_PAD_SPACE)
-                fractol->about_julia = !fractol->about_julia;
-    }
-    return (0);
+int		key_press(int key, t_fractol *fractol)
+{
+	if (key == MAIN_PAD_ESC)
+		exit(0);
+	else if (key == MAIN_PAD_H)
+		help_menu(fractol);
+	else if (!fractol->help_menu)
+	{
+		if (key == MAIN_PAD_R)
+		{
+			set_defaults(fractol);
+			draw_fract(fractol);
+		}
+		else if (key == MAIN_PAD_MINUS || key == NUM_PAD_MINUS \
+		|| key == MAIN_PAD_PLUS || key == NUM_PAD_PLUS)
+			change_max_iteration(key, fractol);
+		else if (key == ARROW_LEFT || key == ARROW_RIGHT \
+		|| key == ARROW_UP || key == ARROW_DOWN)
+			move(key, fractol);
+		else if (key == MAIN_PAD_C)
+			change_color_shift(fractol);
+		else if (key == MAIN_PAD_SPACE)
+			fractol->about_julia = !fractol->about_julia;
+	}
+	return (0);
 }
 
 void	help_menu(t_fractol *fractol)
@@ -36,13 +48,12 @@ void	help_menu(t_fractol *fractol)
 		draw_fract(fractol);
 }
 
-
 void	move(int key, t_fractol *fractol)
 {
 	t_compnums	delta;
 
-	delta = init_compnums(FT_ABS(fractol->max.re - fractol->min.re),
-		FT_ABS(fractol->max.im - fractol->min.im));
+	delta = init_compnums(FT_ABS(fractol->max.re - fractol->min.re), \
+	FT_ABS(fractol->max.im - fractol->min.im));
 	if (key == ARROW_LEFT)
 	{
 		fractol->min.re -= delta.re * 0.05;

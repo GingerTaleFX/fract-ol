@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linux_keys.h                                       :+:      :+:    :+:   */
+/*   macos_keys.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/07 17:42:42 by root              #+#    #+#             */
-/*   Updated: 2020/08/07 17:42:42 by root             ###   ########.fr       */
+/*   Created: 2020/09/07 11:27:53 by root              #+#    #+#             */
+/*   Updated: 2020/09/07 11:28:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_LINUX_KEYS_H
-#define FRACTOL_LINUX_KEYS_H
-
-# define KEY_MACOS_H
+#ifndef MACOS_KEYS_H
+# define MACOS_KEYS_H
 
 # define MOUSE_SCROLL_UP	4
 # define MOUSE_SCROLL_DOWN	5
