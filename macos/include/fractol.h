@@ -22,14 +22,14 @@
 # include <math.h>
 # include <pthread.h>
 
-# define WIDTH 600
-# define HEIGHT 600
-# define MENU_W (WIDTH / 3) - 30
-# define MENU_H (HEIGHT / 3)
-# define LINER 30
-# define THREADS 10
-# define PEACH 0xfc9649
-# define MINT 0x46ba89
+# define WIDTH					600
+# define HEIGHT					600
+# define MENU_W					(WIDTH / 3) - 30
+# define MENU_H					(HEIGHT / 3)
+# define LINER					30
+# define THREADS				10
+# define PEACH					0xfc9649
+# define MINT					0x46ba89
 
 typedef enum
 {
@@ -50,11 +50,11 @@ typedef struct	s_compnums
 }				t_compnums;
 
 /*
-** img		- image identifier
+** img			- image identifier
 ** data_addr	- image
 ** bits_p_pix	- depth of image
 ** line_size	- number of bytes used to store one line of image
-** endian	- little or big endian
+** endian		- little or big endian
 */
 
 typedef	struct	s_img
@@ -83,22 +83,22 @@ typedef	struct	s_img
 
 typedef struct	s_fractol
 {
-	void		*mlx;
-	void		*f_window;
 	t_compnums	complex_number;
 	t_compnums	constant;
 	t_compnums	min;
 	t_compnums	max;
 	t_compnums	factor;
-	int 		name_index;
+	t_bool		help_menu;
+	t_bool		about_julia;
+	t_img		*img;
+	void		*mlx;
+	void		*f_window;
+	int			name_index;
 	int			max_iter;
 	int			color_shift;
 	int			(*formula)(struct s_fractol *fractol);
 	int			start_line;
 	int			finish_line;
-	t_bool		help_menu;
-	t_bool		about_julia;
-	t_img		*img;
 }				t_fractol;
 
 typedef	struct	s_color
@@ -106,30 +106,36 @@ typedef	struct	s_color
 	int8_t		channel[4];
 }				t_color;
 
-t_fractol	*init_fract(char *name, void *mlx);
-t_compnums	init_compnums(double re, double im);
-t_img		*init_img(void *mlx);
-t_color		get_color(int iteration, t_fractol *fractol);
-double		interpolate(double start, double end, double interpolation);
-double		percent(int start, int end, int current);
-double		interpolate(double start, double end, double interpolation);
-void		set_defaults(t_fractol *fractol);
-void		put_pixel(t_fractol *fractol, int x, int y, t_color color);
-void		draw_frac_part(t_fractol *fract);
-void		draw_fract(t_fractol *fract);
-void		change_color_shift(t_fractol *fractol);
-void		change_max_iteration(int key, t_fractol *fractol);
-void		move(int key, t_fractol *fractol);
-void		draw_help(t_fractol *fractol);
-void		help_menu(t_fractol *fractol);
-void		terminate(char *s);
-int			key_press(int key, t_fractol *fractol);
-int			zoom(int button, int x, int y, t_fractol *fractol);
-int			julia_motion(int x, int y, t_fractol *fractol);
-void 		get_formula(t_fractol *fractol);
-int			iterate_mandelbrot(t_fractol *fractol);
-int			iterate_mandelbar(t_fractol *fractol);
-int			iterate_celtic_mandelbrot(t_fractol *fractol);
-int			iterate_julia(t_fractol *fractol);
-int			check_name(char *name);
+t_img			*init_img(void *mlx);
+t_fractol		*init_fract(char *name, void *mlx);
+t_compnums		init_compnums(double re, double im);
+
+t_color			get_color(int iteration, t_fractol *fractol);
+double			interpolate(double start, double end, double interpolation);
+double			percent(int start, int end, int current);
+
+void			set_defaults(t_fractol *fractol);
+
+void			put_pixel(t_fractol *fractol, int x, int y, t_color color);
+void			draw_frac_part(t_fractol *fract);
+void			draw_fract(t_fractol *fract);
+void			change_color_shift(t_fractol *fractol);
+void			change_max_iteration(int key, t_fractol *fractol);
+void			draw_help(t_fractol *fractol);
+void			help_menu(t_fractol *fractol);
+
+void			move(int key, t_fractol *fractol);
+void			terminate(char *s);
+void			get_formula(t_fractol *fractol);
+int				check_name(char *name);
+
+int				key_press(int key, t_fractol *fractol);
+int				zoom(int button, int x, int y, t_fractol *fractol);
+int				julia_motion(int x, int y, t_fractol *fractol);
+
+int				iterate_mandelbrot(t_fractol *fractol);
+int				iterate_burning_ship(t_fractol *fractol);
+int				iterate_celtic_mandelbrot(t_fractol *fractol);
+int				iterate_julia(t_fractol *fractol);
+
 #endif
